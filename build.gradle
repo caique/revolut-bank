@@ -11,7 +11,8 @@ dependencies {
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.28'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.28'
     compile 'com.google.guava:guava:27.1-jre'
-    testCompile 'junit:junit:5.4.12'
+
+    testCompile 'org.junit.jupiter:junit-jupiter:5.4.2'
     testCompile 'org.assertj:assertj-core:3.12.2'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.eclipse.jetty:jetty-server:9.4.18.v20190429'
