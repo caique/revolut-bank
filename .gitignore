@@ -16,7 +16,7 @@ target/
 ### Gradle ###
 .gradle
 build/
-gradle-app.setting
+gradle-application.setting
 !gradle-wrapper.jar
 .gradletasknamecache
 gradle/wrapper/gradle-wrapper.properties
