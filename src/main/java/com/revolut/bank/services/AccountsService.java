@@ -1,7 +1,7 @@
-package com.revolut.bank.services.accounts;
+package com.revolut.bank.services;
 
 import com.revolut.bank.repositories.AccountsRepository;
-import com.revolut.bank.services.accounts.domain.Account;
+import com.revolut.bank.services.domain.Account;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;

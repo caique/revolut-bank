@@ -1,10 +1,8 @@
-package com.revolut.bank.services.transfers.exceptions;
-
-import com.revolut.bank.utils.exceptions.GlamorousException;
+package com.revolut.bank.services.exceptions;
 
 public class UnprocessableTransferException extends RuntimeException implements GlamorousException {
 
-    private String message;
+    private final String message;
 
     public UnprocessableTransferException(String message) {
         this.message = message;

@@ -1,4 +1,4 @@
-package com.revolut.bank.services.transfers.domain;
+package com.revolut.bank.services.domain;
 
 import org.junit.Test;
 

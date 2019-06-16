@@ -1,8 +1,8 @@
 package com.revolut.bank.repositories;
 
-import com.revolut.bank.services.accounts.domain.Account;
-import com.revolut.bank.services.accounts.exceptions.AccountNotFoundException;
-import com.revolut.bank.services.accounts.exceptions.DuplicatedAccountException;
+import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.exceptions.AccountNotFoundException;
+import com.revolut.bank.services.exceptions.DuplicatedAccountException;
 
 import javax.annotation.Resource;
 import javax.inject.Singleton;

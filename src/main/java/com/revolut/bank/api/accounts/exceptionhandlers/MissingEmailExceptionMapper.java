@@ -1,6 +1,6 @@
 package com.revolut.bank.api.accounts.exceptionhandlers;
 
-import com.revolut.bank.services.accounts.exceptions.MissingEmailException;
+import com.revolut.bank.services.exceptions.MissingEmailException;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;

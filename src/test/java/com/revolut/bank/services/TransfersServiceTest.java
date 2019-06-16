@@ -1,15 +1,14 @@
-package com.revolut.bank.services.transfers;
+package com.revolut.bank.services;
 
 import com.revolut.bank.repositories.AccountsRepository;
-import com.revolut.bank.services.accounts.domain.Account;
-import com.revolut.bank.services.accounts.exceptions.AccountNotFoundException;
-import com.revolut.bank.services.transfers.domain.MoneyAmount;
-import com.revolut.bank.services.transfers.exceptions.UnprocessableTransferException;
+import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.domain.MoneyAmount;
+import com.revolut.bank.services.exceptions.AccountNotFoundException;
+import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

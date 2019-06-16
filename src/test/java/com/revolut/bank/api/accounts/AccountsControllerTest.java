@@ -1,9 +1,9 @@
 package com.revolut.bank.api.accounts;
 
 import com.revolut.bank.api.accounts.requests.CreateAccountRequestBody;
-import com.revolut.bank.services.accounts.AccountsService;
-import com.revolut.bank.services.accounts.domain.Account;
-import com.revolut.bank.services.accounts.exceptions.MissingEmailException;
+import com.revolut.bank.services.AccountsService;
+import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.exceptions.MissingEmailException;
 import org.junit.Before;
 import org.junit.Test;
 

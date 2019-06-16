@@ -1,6 +1,6 @@
 package com.revolut.bank.api.accounts.exceptionhandlers;
 
-import com.revolut.bank.services.accounts.exceptions.DuplicatedAccountException;
+import com.revolut.bank.services.exceptions.DuplicatedAccountException;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;

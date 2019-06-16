@@ -1,7 +1,7 @@
 package com.revolut.bank.api.accounts.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.revolut.bank.services.accounts.domain.Account;
+import com.revolut.bank.services.domain.Account;
 
 import java.math.BigDecimal;
 

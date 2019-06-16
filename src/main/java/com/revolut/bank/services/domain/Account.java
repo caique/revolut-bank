@@ -1,9 +1,8 @@
-package com.revolut.bank.services.accounts.domain;
+package com.revolut.bank.services.domain;
 
 import com.google.common.base.Strings;
-import com.revolut.bank.services.accounts.exceptions.MissingEmailException;
-import com.revolut.bank.services.transfers.domain.MoneyAmount;
-import com.revolut.bank.services.transfers.exceptions.UnprocessableTransferException;
+import com.revolut.bank.services.exceptions.MissingEmailException;
+import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
 import java.math.BigDecimal;
 import java.util.Objects;

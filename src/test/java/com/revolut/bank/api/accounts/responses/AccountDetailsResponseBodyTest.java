@@ -1,6 +1,6 @@
 package com.revolut.bank.api.accounts.responses;
 
-import com.revolut.bank.services.accounts.domain.Account;
+import com.revolut.bank.services.domain.Account;
 import org.junit.Test;
 
 import static com.revolut.bank.api.accounts.responses.AccountDetailsResponseBody.NUMBER_OF_DECIMAL_PLACES;

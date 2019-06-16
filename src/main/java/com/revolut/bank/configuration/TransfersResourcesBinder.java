@@ -1,6 +1,6 @@
 package com.revolut.bank.configuration;
 
-import com.revolut.bank.services.transfers.TransfersService;
+import com.revolut.bank.services.TransfersService;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 
 public class TransfersResourcesBinder extends AbstractBinder {

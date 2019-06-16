@@ -1,10 +1,10 @@
-package com.revolut.bank.services.transfers;
+package com.revolut.bank.services;
 
 import com.revolut.bank.repositories.AccountsRepository;
-import com.revolut.bank.services.accounts.domain.Account;
-import com.revolut.bank.services.accounts.exceptions.AccountNotFoundException;
-import com.revolut.bank.services.transfers.domain.MoneyAmount;
-import com.revolut.bank.services.transfers.exceptions.UnprocessableTransferException;
+import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.domain.MoneyAmount;
+import com.revolut.bank.services.exceptions.AccountNotFoundException;
+import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;

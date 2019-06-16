@@ -1,8 +1,8 @@
 package com.revolut.bank.api.transfers;
 
 import com.revolut.bank.api.transfers.requests.TransferRequestBody;
-import com.revolut.bank.services.accounts.domain.Account;
-import com.revolut.bank.services.transfers.TransfersService;
+import com.revolut.bank.services.TransfersService;
+import com.revolut.bank.services.domain.Account;
 import org.junit.Before;
 import org.junit.Test;
 

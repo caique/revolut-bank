@@ -2,7 +2,7 @@ package com.revolut.bank.configuration;
 
 import com.revolut.bank.repositories.AccountsRepository;
 import com.revolut.bank.repositories.InMemoryAccountsRepository;
-import com.revolut.bank.services.accounts.AccountsService;
+import com.revolut.bank.services.AccountsService;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 
 public class AccountsResourcesBinder extends AbstractBinder {

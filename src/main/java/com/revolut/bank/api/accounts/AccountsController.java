@@ -2,8 +2,8 @@ package com.revolut.bank.api.accounts;
 
 import com.revolut.bank.api.accounts.requests.CreateAccountRequestBody;
 import com.revolut.bank.api.accounts.responses.AccountDetailsResponseBody;
-import com.revolut.bank.services.accounts.AccountsService;
-import com.revolut.bank.services.accounts.domain.Account;
+import com.revolut.bank.services.AccountsService;
+import com.revolut.bank.services.domain.Account;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

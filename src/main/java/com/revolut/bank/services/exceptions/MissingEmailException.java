@@ -1,6 +1,4 @@
-package com.revolut.bank.services.accounts.exceptions;
-
-import com.revolut.bank.utils.exceptions.GlamorousException;
+package com.revolut.bank.services.exceptions;
 
 public class MissingEmailException extends RuntimeException implements GlamorousException {
 

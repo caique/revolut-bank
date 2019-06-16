@@ -1,7 +1,6 @@
 package com.revolut.bank.api.transfers.exceptionhandlers;
 
-import com.revolut.bank.services.accounts.exceptions.DuplicatedAccountException;
-import com.revolut.bank.services.transfers.exceptions.UnprocessableTransferException;
+import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;

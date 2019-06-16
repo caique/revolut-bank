@@ -1,6 +1,5 @@
 package com.revolut.bank.api.transfers.requests;
 
-import com.revolut.bank.api.accounts.requests.CreateAccountRequestBody;
 import org.junit.Test;
 
 import java.math.BigDecimal;

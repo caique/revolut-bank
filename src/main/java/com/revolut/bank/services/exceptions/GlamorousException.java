@@ -1,4 +1,4 @@
-package com.revolut.bank.utils.exceptions;
+package com.revolut.bank.services.exceptions;
 
 import org.json.JSONObject;
 
