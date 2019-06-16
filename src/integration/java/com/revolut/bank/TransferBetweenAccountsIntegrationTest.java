@@ -20,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TransferBetweenAccountsIntegrationTest {
 
     private static final int UNPROCESSABLE_ENTITY = 422;
-    private static final String TRANSFERS_ENDPOINT = Application.BASE_URI + "transfers";
 
     private HttpServer server;
 
