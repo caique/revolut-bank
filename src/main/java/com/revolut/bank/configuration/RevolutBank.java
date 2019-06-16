@@ -8,6 +8,7 @@ public class RevolutBank extends ResourceConfig {
     public RevolutBank() {
         register(JacksonFeature.class);
         register(new AccountsResourcesBinder());
+        register(new TransfersResourcesBinder());
         packages(true, "com.revolut.bank");
     }
 

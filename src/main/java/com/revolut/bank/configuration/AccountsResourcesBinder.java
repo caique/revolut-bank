@@ -5,7 +5,6 @@ import com.revolut.bank.repositories.InMemoryAccountsRepository;
 import com.revolut.bank.services.accounts.AccountsService;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 
-
 public class AccountsResourcesBinder extends AbstractBinder {
 
     @Override

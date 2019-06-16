@@ -19,7 +19,7 @@ import static javax.ws.rs.core.Response.Status.CREATED;
 @Path("/accounts")
 public class AccountsController {
 
-    private AccountsService accountsService;
+    private final AccountsService accountsService;
 
     @Inject
     public AccountsController(AccountsService accountsService) {

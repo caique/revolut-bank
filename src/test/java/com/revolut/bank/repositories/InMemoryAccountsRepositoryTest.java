@@ -1,9 +1,13 @@
 package com.revolut.bank.repositories;
 
 import com.revolut.bank.services.accounts.domain.Account;
+import com.revolut.bank.services.accounts.exceptions.AccountNotFoundException;
 import com.revolut.bank.services.accounts.exceptions.DuplicatedAccountException;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -31,7 +35,7 @@ public class InMemoryAccountsRepositoryTest {
     }
 
     @Test
-    public void saveAccountsWithNewEmailsWithoutThrowingExceptions() {
+    public void saveAccountsWithNewEmailWithoutThrowingExceptions() {
         Account accountForJohn = new Account("john.doe@email.com");
         Account accountForJane = new Account("jane.doe@email.com");
 
@@ -41,6 +45,58 @@ public class InMemoryAccountsRepositoryTest {
         });
 
         assertThat(throwable).isNull();
+    }
+
+    @Test
+    public void throwsAccountNotFoundExceptionWhenAttemptToUpdateANonExistentAccount() {
+        String email = "john.doe@email.com";
+
+        Throwable throwable = catchThrowable(() -> {
+            accountsRepository.update(new Account(email));
+        });
+
+        assertThat(throwable).isInstanceOf(AccountNotFoundException.class);
+    }
+
+    @Test
+    public void updateAccountBalanceWithoutThrowingExceptions() {
+        String email = "john.doe@email.com";
+        BigDecimal newBalance = new BigDecimal(90.00);
+
+        accountsRepository.save(new Account(email));
+
+        Account modifiedAccount = new Account(email, newBalance);
+
+        Throwable throwable = catchThrowable(() -> {
+            accountsRepository.update(modifiedAccount);
+        });
+
+        Account account = accountsRepository.findByEmail(email);
+
+        assertThat(account).isNotNull();
+        assertThat(account.getEmail()).isEqualTo(email);
+        assertThat(account.getBalance().toString()).isEqualTo("90.00");
+    }
+
+    @Test
+    public void returnAccountWhenFindingByEmail() {
+        String email = "john.doe@email.com";
+
+        accountsRepository.save(new Account(email));
+
+        Account account = accountsRepository.findByEmail(email);
+
+        assertThat(account).isNotNull();
+        assertThat(account.getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    public void returnNullWhenAccountIsNotFound() {
+        String nonExistentEmail = "john.doe@email.com";
+
+        Account account = accountsRepository.findByEmail(nonExistentEmail);
+
+        assertThat(account).isNull();
     }
 
 }
