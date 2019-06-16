@@ -1,4 +1,4 @@
-package com.revolut.bank.accounts.utils;
+package com.revolut.bank.utils;
 
 import com.revolut.bank.Application;
 

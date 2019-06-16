@@ -1,4 +1,4 @@
-package com.revolut.bank.transfers.utils;
+package com.revolut.bank.utils;
 
 import com.revolut.bank.api.transfers.requests.TransferRequestBody;
 
@@ -7,7 +7,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 
-import static com.revolut.bank.accounts.utils.Constants.TRANSFERS_ENDPOINT;
+import static com.revolut.bank.utils.Constants.TRANSFERS_ENDPOINT;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class TransferBetweenAccounts {

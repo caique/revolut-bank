@@ -1,22 +1,18 @@
-package com.revolut.bank.transfers;
+package com.revolut.bank;
 
 import com.revolut.bank.Application;
-import com.revolut.bank.accounts.utils.CreateAccount;
+import com.revolut.bank.utils.CreateAccount;
 import com.revolut.bank.api.accounts.responses.AccountDetailsResponseBody;
-import com.revolut.bank.api.transfers.requests.TransferRequestBody;
-import com.revolut.bank.transfers.utils.TransferBetweenAccounts;
+import com.revolut.bank.utils.TransferBetweenAccounts;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.assertj.core.api.Assertions.assertThat;
