@@ -4,6 +4,10 @@ public class UnprocessableTransferException extends RuntimeException implements 
 
     private final String message;
 
+    public UnprocessableTransferException() {
+        this.message = "An unexpected error occurred and the transfer was not processed.";
+    }
+
     public UnprocessableTransferException(String message) {
         this.message = message;
     }

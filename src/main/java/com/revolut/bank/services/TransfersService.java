@@ -39,7 +39,7 @@ public class TransfersService {
 
             return sourceAccount;
         } catch (AccountNotFoundException exception) {
-            throw new UnprocessableTransferException("An unexpected error occurred and the transfer was not processed.");
+            throw new UnprocessableTransferException();
         }
     }
 
