@@ -1,12 +1,11 @@
 package com.revolut.bank.repositories;
 
 import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.domain.MoneyAmount;
 import com.revolut.bank.services.exceptions.AccountNotFoundException;
 import com.revolut.bank.services.exceptions.DuplicatedAccountException;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -60,11 +59,10 @@ public class InMemoryAccountsRepositoryTest {
     @Test
     public void updateAccountBalanceWithoutThrowingExceptions() {
         String email = "john.doe@email.com";
-        BigDecimal newBalance = new BigDecimal(90.00);
 
         accountsRepository.save(new Account(email));
 
-        Account modifiedAccount = new Account(email, newBalance);
+        Account modifiedAccount = new Account(email, MoneyAmount.ONE);
 
         Throwable throwable = catchThrowable(() -> {
             accountsRepository.update(modifiedAccount);
@@ -74,7 +72,7 @@ public class InMemoryAccountsRepositoryTest {
 
         assertThat(account).isNotNull();
         assertThat(account.getEmail()).isEqualTo(email);
-        assertThat(account.getBalance().toString()).isEqualTo("90.00");
+        assertThat(account.getBalance().getValue()).isEqualTo("1");
     }
 
     @Test

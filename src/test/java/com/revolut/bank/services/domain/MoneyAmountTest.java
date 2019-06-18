@@ -9,13 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MoneyAmountTest {
 
     @Test
-    public void aMoneyAmountCreatedFromNullIsNotPositive() {
-        MoneyAmount moneyAmount = new MoneyAmount(null);
-
-        assertThat(moneyAmount.isNotPositive()).isTrue();
-    }
-
-    @Test
     public void aMoneyAmountCreatedFromZeroIsNotPositive() {
         MoneyAmount moneyAmount = new MoneyAmount(BigDecimal.ZERO);
 
@@ -41,22 +34,6 @@ public class MoneyAmountTest {
     }
 
     @Test
-    public void aMoneyAmountIsAlwaysPresentedWithTwoDecimalPlacesAndRoundedHalfDown() {
-        BigDecimal unformattedAmount = new BigDecimal(1.05789);
-
-        MoneyAmount moneyAmount = new MoneyAmount(unformattedAmount);
-
-        assertThat(moneyAmount.getAmount().toString()).isEqualTo("1.05");
-    }
-
-    @Test
-    public void aMoneyAmountCreatedFromNullValueIsPresentedAsZero() {
-        MoneyAmount moneyAmount = new MoneyAmount(null);
-
-        assertThat(moneyAmount.getAmount().toString()).isEqualTo("0.00");
-    }
-
-    @Test
     public void twoMoneyAmountInstancesWithTheSameValueAreEqual() {
         BigDecimal randomAmount = new BigDecimal(1.05789);
 
@@ -68,13 +45,38 @@ public class MoneyAmountTest {
 
     @Test
     public void moneyAmountsAreComparable() {
-        MoneyAmount higherAmount = new MoneyAmount(BigDecimal.TEN);
-        MoneyAmount lowerAmount = new MoneyAmount(BigDecimal.ONE);
+        MoneyAmount higherAmount = new MoneyAmount(10);
+        MoneyAmount lowerAmount = new MoneyAmount(1);
 
         assertThat(lowerAmount.isLessThan(lowerAmount)).isFalse();
         assertThat(higherAmount.isLessThan(higherAmount)).isFalse();
         assertThat(higherAmount.isLessThan(lowerAmount)).isFalse();
         assertThat(lowerAmount.isLessThan(higherAmount)).isTrue();
+    }
+
+    @Test
+    public void moneyAmountCanBeAddedToAnother() {
+        MoneyAmount moneyAmount = new MoneyAmount(BigDecimal.ONE);
+
+        MoneyAmount resultedAmount = moneyAmount.add(moneyAmount);
+
+        assertThat(resultedAmount.getValue()).isEqualTo(new BigDecimal(2));
+    }
+
+    @Test
+    public void moneyAmountCanBeSubtractedFromAnother() {
+        MoneyAmount moneyAmount = new MoneyAmount(BigDecimal.ONE);
+
+        MoneyAmount resultedAmount = moneyAmount.subtract(moneyAmount);
+
+        assertThat(resultedAmount.getValue()).isEqualTo(BigDecimal.ZERO);
+    }
+
+    @Test
+    public void moneyAmountCanReturnAFormattedVersionOfValue() {
+        assertThat(MoneyAmount.ZERO.getFormattedValue()).isEqualTo("0.00");
+        assertThat(MoneyAmount.ONE.getFormattedValue()).isEqualTo("1.00");
+        assertThat(MoneyAmount.GRAND.getFormattedValue()).isEqualTo("100.00");
     }
 
 }

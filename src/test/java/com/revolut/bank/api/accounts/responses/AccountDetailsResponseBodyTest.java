@@ -15,7 +15,10 @@ public class AccountDetailsResponseBodyTest {
         AccountDetailsResponseBody accountDetailsResponseBody = new AccountDetailsResponseBody(account);
 
         String expectedEmail = account.getEmail();
-        String expectedBalance = account.getBalance().setScale(NUMBER_OF_DECIMAL_PLACES, ROUNDING_STRATEGY).toString();
+        String expectedBalance = account
+                .getBalance()
+                .getValue()
+                .setScale(NUMBER_OF_DECIMAL_PLACES, ROUNDING_STRATEGY).toString();
 
         assertThat(accountDetailsResponseBody.getEmail()).isEqualTo(expectedEmail);
         assertThat(accountDetailsResponseBody.getBalance()).isEqualTo(expectedBalance);

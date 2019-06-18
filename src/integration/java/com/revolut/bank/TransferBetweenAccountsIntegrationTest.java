@@ -1,8 +1,7 @@
 package com.revolut.bank;
 
-import com.revolut.bank.Application;
-import com.revolut.bank.utils.CreateAccount;
 import com.revolut.bank.api.accounts.responses.AccountDetailsResponseBody;
+import com.revolut.bank.utils.CreateAccount;
 import com.revolut.bank.utils.TransferBetweenAccounts;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;

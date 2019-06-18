@@ -12,11 +12,6 @@ public class Account {
     private final String email;
     private MoneyAmount balance;
 
-    public Account(String email, BigDecimal balance) {
-        this.email = email;
-        this.balance = new MoneyAmount(balance);
-    }
-
     public Account(String email) {
         if (Strings.isNullOrEmpty(email)) throw new MissingEmailException();
 
@@ -25,12 +20,17 @@ public class Account {
         this.email = email;
     }
 
+    public Account(String email, MoneyAmount balance) {
+        this.email = email;
+        this.balance = balance;
+    }
+
     public String getEmail() {
         return this.email;
     }
 
-    public BigDecimal getBalance() {
-        return this.balance.getAmount();
+    public MoneyAmount getBalance() {
+        return this.balance;
     }
 
     public void transferTo(Account destinationAccount, MoneyAmount amount) {
@@ -39,20 +39,16 @@ public class Account {
         if (amount.isNotPositive()) throw new UnprocessableTransferException("Amount to be transferred must be higher than zero.");
         if (this.balance.isLessThan(amount)) throw new UnprocessableTransferException("Insufficient funds.");
 
-        BigDecimal valueToBeTransferred = amount.getAmount();
-
-        this.subtractFromBalance(valueToBeTransferred);
-        destinationAccount.addToBalance(valueToBeTransferred);
+        this.subtractFromBalance(amount);
+        destinationAccount.addToBalance(amount);
     }
 
-    private void addToBalance(BigDecimal amount) {
-        BigDecimal newBalance = this.getBalance().add(amount);
-        this.balance = new MoneyAmount(newBalance);
+    private void addToBalance(MoneyAmount amount) {
+        this.balance = this.balance.add(amount);
     }
 
-    private void subtractFromBalance(BigDecimal amount) {
-        BigDecimal newBalance = this.getBalance().subtract(amount);
-        this.balance = new MoneyAmount(newBalance);
+    private void subtractFromBalance(MoneyAmount amount) {
+        this.balance = this.balance.subtract(amount);
     }
 
     @Override

@@ -4,8 +4,6 @@ import com.revolut.bank.services.exceptions.MissingEmailException;
 import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -40,7 +38,7 @@ public class AccountTest {
     public void theBuiltAccountMustHaveBalanceEqualsTo100() {
         Account account = new Account("john.doe@email.com");
 
-        assertThat(account.getBalance().toString()).isEqualTo("100.00");
+        assertThat(account.getBalance()).isEqualTo(new MoneyAmount(100));
     }
 
     @Test
@@ -69,13 +67,11 @@ public class AccountTest {
 
     @Test
     public void throwsUnprocessableTransferExceptionWhenBalanceIsNotPositive() {
-        BigDecimal baseAmount = BigDecimal.TEN;
-
-        Account accountForJohn = new Account("john.doe@email.com", BigDecimal.ZERO);
+        Account accountForJohn = new Account("john.doe@email.com", MoneyAmount.ZERO);
         Account accountForJane = new Account("jane.doe@email.com");
 
         Throwable throwable = catchThrowable(() -> {
-            accountForJohn.transferTo(accountForJane, new MoneyAmount(baseAmount));
+            accountForJohn.transferTo(accountForJane, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -88,7 +84,7 @@ public class AccountTest {
         Account accountForJane = new Account("jane.doe@email.com");
 
         Throwable throwable = catchThrowable(() -> {
-            accountForJohn.transferTo(accountForJane, new MoneyAmount(BigDecimal.ZERO));
+            accountForJohn.transferTo(accountForJane, MoneyAmount.ZERO);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -97,11 +93,11 @@ public class AccountTest {
 
     @Test
     public void throwsUnprocessableTransferExceptionWhenTransferedAmountIsHigherThanBalance() {
-        Account accountForJohn = new Account("john.doe@email.com", BigDecimal.ONE);
+        Account accountForJohn = new Account("john.doe@email.com", MoneyAmount.ONE);
         Account accountForJane = new Account("jane.doe@email.com");
 
         Throwable throwable = catchThrowable(() -> {
-            accountForJohn.transferTo(accountForJane, new MoneyAmount(BigDecimal.TEN));
+            accountForJohn.transferTo(accountForJane, MoneyAmount.GRAND);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -113,7 +109,7 @@ public class AccountTest {
         Account accountForJohn = new Account("john.doe@email.com");
 
         Throwable throwable = catchThrowable(() -> {
-            accountForJohn.transferTo(accountForJohn, new MoneyAmount(BigDecimal.TEN));
+            accountForJohn.transferTo(accountForJohn, MoneyAmount.GRAND);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -122,13 +118,13 @@ public class AccountTest {
 
     @Test
     public void balanceMustBeUpdatedAfterTransfer() {
-        Account accountForJohn = new Account("john.doe@email.com", BigDecimal.ONE);
-        Account accountForJane = new Account("jane.doe@email.com", BigDecimal.ZERO);
+        Account accountForJohn = new Account("john.doe@email.com", MoneyAmount.ONE);
+        Account accountForJane = new Account("jane.doe@email.com", MoneyAmount.ZERO);
 
-        accountForJohn.transferTo(accountForJane, new MoneyAmount(BigDecimal.ONE));
+        accountForJohn.transferTo(accountForJane, MoneyAmount.ONE);
 
-        assertThat(accountForJohn.getBalance()).isEqualTo(new MoneyAmount(BigDecimal.ZERO).getAmount());
-        assertThat(accountForJane.getBalance()).isEqualTo(new MoneyAmount(BigDecimal.ONE).getAmount());
+        assertThat(accountForJohn.getBalance()).isEqualTo(MoneyAmount.ZERO);
+        assertThat(accountForJane.getBalance()).isEqualTo(MoneyAmount.ONE);
     }
 
 }

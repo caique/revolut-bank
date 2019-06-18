@@ -116,15 +116,13 @@ public class TransfersServiceTest {
     @Test
     public void throwsUnprocessableTransferExceptionWhenSourceAndDestinationAreTheSameAccount() {
         String email = "john.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
 
-        Account singleAccount = spy(new Account(email, amount));
-        MoneyAmount moneyAmount = new MoneyAmount(amount);
+        Account singleAccount = spy(new Account(email, MoneyAmount.GRAND));
 
         when(accountsRepository.findByEmail(email)).thenReturn(singleAccount);
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(email, email, amount);
+            this.transfersService.transferBetweenAccounts(email, email, BigDecimal.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -150,25 +148,23 @@ public class TransfersServiceTest {
     public void processTransferBetweenAccountsAndUpdateBoth() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
 
-        Account sourceAccount = spy(new Account(source, amount));
-        Account destinationAccount = spy(new Account(destination, amount));
-        MoneyAmount moneyAmount = new MoneyAmount(amount);
+        Account sourceAccount = spy(new Account(source, MoneyAmount.ONE));
+        Account destinationAccount = spy(new Account(destination, MoneyAmount.ONE));
 
         when(accountsRepository.findByEmail(source)).thenReturn(sourceAccount);
         when(accountsRepository.findByEmail(destination)).thenReturn(destinationAccount);
 
-        Account account = this.transfersService.transferBetweenAccounts(source, destination, amount);
+        Account account = this.transfersService.transferBetweenAccounts(source, destination, BigDecimal.ONE);
 
         assertThat(account).isEqualTo(sourceAccount);
 
-        verify(sourceAccount).transferTo(destinationAccount, moneyAmount);
+        verify(sourceAccount).transferTo(destinationAccount, MoneyAmount.ONE);
         verify(accountsRepository).update(sourceAccount);
         verify(accountsRepository).update(destinationAccount);
 
-        assertThat(sourceAccount.getBalance().toString()).isEqualTo("0.00");
-        assertThat(destinationAccount.getBalance().toString()).isEqualTo("20.00");
+        assertThat(sourceAccount.getBalance()).isEqualTo(MoneyAmount.ZERO);
+        assertThat(destinationAccount.getBalance()).isEqualTo(new MoneyAmount(2));
     }
 
 }

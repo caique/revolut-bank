@@ -1,12 +1,12 @@
 package com.revolut.bank.repositories;
 
 import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.domain.MoneyAmount;
 import com.revolut.bank.services.exceptions.AccountNotFoundException;
 import com.revolut.bank.services.exceptions.DuplicatedAccountException;
 
 import javax.annotation.Resource;
 import javax.inject.Singleton;
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ public class InMemoryAccountsRepository implements AccountsRepository {
 
     private static final Logger logger = Logger.getLogger(InMemoryAccountsRepository.class.getName());
 
-    private Map<String, BigDecimal> accounts;
+    private Map<String, MoneyAmount> accounts;
 
     public InMemoryAccountsRepository() {
         this.accounts = new ConcurrentHashMap<>();
@@ -44,7 +44,7 @@ public class InMemoryAccountsRepository implements AccountsRepository {
     @Override
     public Account findByEmail(String email) {
         if (this.accounts.containsKey(email)) {
-            BigDecimal balance = this.accounts.get(email);
+            MoneyAmount balance = this.accounts.get(email);
 
             return new Account(email, balance);
         }
