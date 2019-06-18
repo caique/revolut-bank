@@ -13,7 +13,6 @@ dependencies {
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.28'
 
     compile 'org.json:json:20180813'
-    compile 'com.google.guava:guava:27.1-jre'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.12.2'

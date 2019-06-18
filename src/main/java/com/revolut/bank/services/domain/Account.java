@@ -1,6 +1,5 @@
 package com.revolut.bank.services.domain;
 
-import com.google.common.base.Strings;
 import com.revolut.bank.services.exceptions.MissingEmailException;
 import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
@@ -12,7 +11,7 @@ public class Account {
     private MoneyAmount balance;
 
     public Account(String email) {
-        if (Strings.isNullOrEmpty(email)) throw new MissingEmailException();
+        if (Objects.isNull(email) || email.isEmpty()) throw new MissingEmailException();
 
         this.balance = MoneyAmount.GRAND;
         this.email = email;
