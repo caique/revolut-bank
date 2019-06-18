@@ -8,7 +8,6 @@ import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 @Resource

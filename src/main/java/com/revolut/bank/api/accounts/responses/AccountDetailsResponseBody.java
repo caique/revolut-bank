@@ -6,13 +6,7 @@ import com.revolut.bank.services.domain.MoneyAmount;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.ROUND_FLOOR;
-import static java.math.BigDecimal.ROUND_HALF_DOWN;
-
 public class AccountDetailsResponseBody {
-
-    public static final int ROUNDING_STRATEGY = ROUND_FLOOR;
-    public static final int NUMBER_OF_DECIMAL_PLACES = 2;
 
     @JsonProperty("email")
     private String email;
