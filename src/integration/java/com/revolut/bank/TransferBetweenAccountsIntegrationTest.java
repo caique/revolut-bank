@@ -87,7 +87,7 @@ public class TransferBetweenAccountsIntegrationTest {
 
         String responseBody = response.readEntity(String.class);
 
-        assertThat(responseBody).isEqualTo("{\"error\":\"Source is required to transfer money between accounts.\"}");
+        assertThat(responseBody).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
     @Test
@@ -105,7 +105,7 @@ public class TransferBetweenAccountsIntegrationTest {
 
         String responseBody = response.readEntity(String.class);
 
-        assertThat(responseBody).isEqualTo("{\"error\":\"Destination is required to transfer money between accounts.\"}");
+        assertThat(responseBody).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
 }

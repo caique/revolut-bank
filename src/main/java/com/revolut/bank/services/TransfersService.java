@@ -9,7 +9,6 @@ import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @Resource
@@ -25,26 +24,23 @@ public class TransfersService {
     }
 
     public Account transferBetweenAccounts(String source, String destination, BigDecimal amount) {
-        Account sourceAccount = Optional.ofNullable(this.accountsRepository.findByEmail(source))
-                .orElseThrow(() -> new UnprocessableTransferException("Source is required to transfer money between accounts."));
-
-        Account destinationAccount = Optional.ofNullable(this.accountsRepository.findByEmail(destination))
-                .orElseThrow(() -> new UnprocessableTransferException("Destination is required to transfer money between accounts."));
-
-        MoneyAmount moneyAmount = new MoneyAmount(amount);
-
         try {
+            Account sourceAccount = this.accountsRepository.findByEmail(source);
+            Account destinationAccount = this.accountsRepository.findByEmail(destination);
+
+            MoneyAmount moneyAmount = new MoneyAmount(amount);
+
             sourceAccount.transferTo(destinationAccount, moneyAmount);
 
             this.accountsRepository.update(sourceAccount);
             this.accountsRepository.update(destinationAccount);
+
+            logger.info("A successful transfer was executed: " + source + " transferred " + amount + " to " + destination + ".");
+
+            return sourceAccount;
         } catch (AccountNotFoundException exception) {
             throw new UnprocessableTransferException("An unexpected error occurred and the transfer was not processed.");
         }
-
-        logger.info("A successful transfer was executed: " + source + " transferred " + amount + " to " + destination + ".");
-
-        return sourceAccount;
     }
 
 }

@@ -34,7 +34,7 @@ public class TransfersServiceTest {
         String destination = "jane.doe@email.com";
         BigDecimal amount = BigDecimal.TEN;
 
-        when(accountsRepository.findByEmail(source)).thenReturn(null);
+        when(accountsRepository.findByEmail(source)).thenThrow(new AccountNotFoundException());
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
         Throwable throwable = catchThrowable(() -> {
@@ -42,7 +42,7 @@ public class TransfersServiceTest {
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
-        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"Source is required to transfer money between accounts.\"}");
+        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TransfersServiceTest {
         String destination = "jane.doe@email.com";
         BigDecimal amount = BigDecimal.TEN;
 
-        when(accountsRepository.findByEmail(source)).thenReturn(null);
+        when(accountsRepository.findByEmail(source)).thenThrow(new AccountNotFoundException());
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
         Throwable throwable = catchThrowable(() -> {
@@ -59,7 +59,7 @@ public class TransfersServiceTest {
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
-        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"Source is required to transfer money between accounts.\"}");
+        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
     @Test
@@ -69,14 +69,14 @@ public class TransfersServiceTest {
         BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
-        when(accountsRepository.findByEmail(destination)).thenReturn(null);
+        when(accountsRepository.findByEmail(destination)).thenThrow(new AccountNotFoundException());
 
         Throwable throwable = catchThrowable(() -> {
             this.transfersService.transferBetweenAccounts(source, destination, amount);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
-        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"Destination is required to transfer money between accounts.\"}");
+        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
     @Test
@@ -86,14 +86,14 @@ public class TransfersServiceTest {
         BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
-        when(accountsRepository.findByEmail(destination)).thenReturn(null);
+        when(accountsRepository.findByEmail(destination)).thenThrow(new AccountNotFoundException());
 
         Throwable throwable = catchThrowable(() -> {
             this.transfersService.transferBetweenAccounts(source, destination, amount);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
-        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"Destination is required to transfer money between accounts.\"}");
+        assertThat(throwable.getMessage()).isEqualTo("{\"error\":\"An unexpected error occurred and the transfer was not processed.\"}");
     }
 
     @Test
@@ -114,7 +114,7 @@ public class TransfersServiceTest {
     }
 
     @Test
-    public void throwsUnprocessableTransferExceptionWhenSourceAndDestinationAreTheSameAccount() throws AccountNotFoundException {
+    public void throwsUnprocessableTransferExceptionWhenSourceAndDestinationAreTheSameAccount() {
         String email = "john.doe@email.com";
         BigDecimal amount = BigDecimal.TEN;
 
@@ -147,7 +147,7 @@ public class TransfersServiceTest {
     }
 
     @Test
-    public void processTransferBetweenAccountsAndUpdateBoth() throws AccountNotFoundException {
+    public void processTransferBetweenAccountsAndUpdateBoth() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
         BigDecimal amount = BigDecimal.TEN;

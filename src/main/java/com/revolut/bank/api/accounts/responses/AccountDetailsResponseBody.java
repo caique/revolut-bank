@@ -30,8 +30,8 @@ public class AccountDetailsResponseBody {
         return email;
     }
 
-    public String getBalance() {
-        return balance.toString();
+    public BigDecimal getBalance() {
+        return balance;
     }
 
 }

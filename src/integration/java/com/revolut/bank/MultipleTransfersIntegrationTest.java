@@ -2,6 +2,7 @@ package com.revolut.bank;
 
 import com.revolut.bank.api.accounts.responses.AccountDetailsResponseBody;
 import com.revolut.bank.utils.CreateAccount;
+import com.revolut.bank.utils.RetrieveAccountDetails;
 import com.revolut.bank.utils.TransferBetweenAccounts;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
@@ -52,11 +53,16 @@ public class MultipleTransfersIntegrationTest {
         TransferBetweenAccounts.using(emailForJane, emailForJohn, new BigDecimal(21.12));
         TransferBetweenAccounts.using(emailForJane, emailForJohn, new BigDecimal(21.12));
 
-        Response finalAccountDetail = TransferBetweenAccounts.using(emailForJane, emailForJohn, new BigDecimal(50.0));
+        TransferBetweenAccounts.using(emailForJane, emailForJohn, new BigDecimal(50.0));
 
-        AccountDetailsResponseBody accountDetails = finalAccountDetail.readEntity(AccountDetailsResponseBody.class);
+        Response detailsForJohn = RetrieveAccountDetails.with(emailForJohn);
+        Response detailsForJane = RetrieveAccountDetails.with(emailForJane);
 
-        assertThat(accountDetails.getBalance()).isEqualTo("50.00");
+        AccountDetailsResponseBody johnFinalDetails = detailsForJohn.readEntity(AccountDetailsResponseBody.class);
+        AccountDetailsResponseBody janeFinalDetails = detailsForJane.readEntity(AccountDetailsResponseBody.class);
+
+        assertThat(johnFinalDetails.getBalance()).isEqualTo("150.00");
+        assertThat(janeFinalDetails.getBalance()).isEqualTo("50.00");
     }
 
 }

@@ -49,7 +49,7 @@ public class InMemoryAccountsRepository implements AccountsRepository {
             return new Account(email, balance);
         }
 
-        return null;
+        throw new AccountNotFoundException();
     }
 
 }

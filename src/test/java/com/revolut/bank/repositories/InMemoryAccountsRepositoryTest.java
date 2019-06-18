@@ -90,12 +90,14 @@ public class InMemoryAccountsRepositoryTest {
     }
 
     @Test
-    public void returnNullWhenAccountIsNotFound() {
+    public void throwsAccountNotFoundExceptionWhenAttemptToFindByEmailANonExistentAccount() {
         String nonExistentEmail = "john.doe@email.com";
 
-        Account account = accountsRepository.findByEmail(nonExistentEmail);
+        Throwable throwable = catchThrowable(() -> {
+            accountsRepository.findByEmail(nonExistentEmail);
+        });
 
-        assertThat(account).isNull();
+        assertThat(throwable).isInstanceOf(AccountNotFoundException.class);
     }
 
 }
