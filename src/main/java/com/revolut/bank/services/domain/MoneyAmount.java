@@ -25,6 +25,10 @@ public class MoneyAmount {
         this(new BigDecimal(amount));
     }
 
+    public MoneyAmount(Double amount) {
+        this(new BigDecimal(amount));
+    }
+
     public BigDecimal getValue() {
         return this.amount.orElse(BigDecimal.ZERO);
     }

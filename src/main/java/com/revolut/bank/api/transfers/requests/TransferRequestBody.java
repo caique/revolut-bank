@@ -1,17 +1,17 @@
 package com.revolut.bank.api.transfers.requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.revolut.bank.services.domain.MoneyAmount;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-
-import static java.math.BigDecimal.ZERO;
 
 public class TransferRequestBody {
 
     private final Optional<String> source;
     private final Optional<String> destination;
-    private final Optional<BigDecimal> amount;
+    private final MoneyAmount amount;
 
     public TransferRequestBody(@JsonProperty("source") String source,
                                @JsonProperty("destination") String destination,
@@ -19,7 +19,7 @@ public class TransferRequestBody {
 
         this.source = Optional.ofNullable(source);
         this.destination = Optional.ofNullable(destination);
-        this.amount = Optional.ofNullable(amount);
+        this.amount = new MoneyAmount(amount);
     }
 
     public String getSource() {
@@ -31,7 +31,12 @@ public class TransferRequestBody {
     }
 
     public BigDecimal getAmount() {
-        return amount.orElse(ZERO);
+        return amount.getValue();
+    }
+
+    @JsonIgnore
+    public MoneyAmount getMoneyAmount() {
+        return amount;
     }
 
 }

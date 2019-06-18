@@ -1,5 +1,6 @@
 package com.revolut.bank.api.transfers.requests;
 
+import com.revolut.bank.services.domain.MoneyAmount;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -72,6 +73,17 @@ public class TransferRequestBodyTest {
         TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount);
 
         assertThat(transferRequestBody.getAmount()).isEqualTo(amount);
+    }
+
+    @Test
+    public void returnsTheProperMoneyAmountInstance() {
+        String source = "john.doe@email.com";
+        String destination = "jane.doe@email.com";
+        BigDecimal amount = BigDecimal.ONE;
+
+        TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount);
+
+        assertThat(transferRequestBody.getMoneyAmount()).isEqualTo(MoneyAmount.ONE);
     }
 
 }

@@ -23,21 +23,21 @@ public class TransfersService {
         this.accountsRepository = accountsRepository;
     }
 
-    public Account transferBetweenAccounts(String source, String destination, BigDecimal amount) {
+    public Account transferBetweenAccounts(String source, String destination, MoneyAmount amount) {
         try {
             Account sourceAccount = this.accountsRepository.findByEmail(source);
             Account destinationAccount = this.accountsRepository.findByEmail(destination);
 
-            MoneyAmount moneyAmount = new MoneyAmount(amount);
-
-            sourceAccount.transferTo(destinationAccount, moneyAmount);
+            sourceAccount.transferTo(destinationAccount, amount);
 
             this.accountsRepository.update(sourceAccount);
             this.accountsRepository.update(destinationAccount);
 
-            logger.info("A successful transfer was executed: " + source + " transferred " + amount + " to " + destination + ".");
+            logger.info("A successful transfer was executed: "
+                    + source + " transferred " + amount .getFormattedValue() + " to " + destination + ".");
 
             return sourceAccount;
+
         } catch (AccountNotFoundException exception) {
             throw new UnprocessableTransferException();
         }

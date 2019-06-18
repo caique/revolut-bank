@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import com.revolut.bank.services.exceptions.MissingEmailException;
 import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Account {
@@ -15,8 +14,7 @@ public class Account {
     public Account(String email) {
         if (Strings.isNullOrEmpty(email)) throw new MissingEmailException();
 
-        BigDecimal arbitraryInitialAmount = new BigDecimal(100.00);
-        this.balance = new MoneyAmount(arbitraryInitialAmount);
+        this.balance = MoneyAmount.GRAND;
         this.email = email;
     }
 

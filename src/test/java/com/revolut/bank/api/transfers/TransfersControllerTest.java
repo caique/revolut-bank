@@ -3,6 +3,7 @@ package com.revolut.bank.api.transfers;
 import com.revolut.bank.api.transfers.requests.TransferRequestBody;
 import com.revolut.bank.services.TransfersService;
 import com.revolut.bank.services.domain.Account;
+import com.revolut.bank.services.domain.MoneyAmount;
 import com.revolut.bank.services.exceptions.UnprocessableTransferException;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,12 +69,12 @@ public class TransfersControllerTest {
     public void callsCreateAccountUseCaseWhenCreatingANewAccount() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
+        MoneyAmount amount = MoneyAmount.ONE;
 
         when(transfersService.transferBetweenAccounts(source, destination, amount))
                 .thenReturn(new Account("john.doe@email.com"));
 
-        TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount);
+        TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount.getValue());
 
         this.controller.transfer(transferRequestBody);
 
@@ -84,12 +85,12 @@ public class TransfersControllerTest {
     public void returnsAccountDetailsWhenAnAccountIsCreated() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
+        MoneyAmount amount = MoneyAmount.ONE;
 
         when(transfersService.transferBetweenAccounts(source, destination, amount))
                 .thenReturn(new Account("john.doe@email.com"));
 
-        TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount);
+        TransferRequestBody transferRequestBody = new TransferRequestBody(source, destination, amount.getValue());
 
         Response response = this.controller.transfer(transferRequestBody);
 

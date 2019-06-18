@@ -32,13 +32,12 @@ public class TransfersServiceTest {
     public void throwsUnprocessableTransferExceptionWhenTransferingWithANullSource() {
         String source = null;
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenThrow(new AccountNotFoundException());
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(source, destination, amount);
+            this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -49,13 +48,12 @@ public class TransfersServiceTest {
     public void throwsUnprocessableTransferExceptionWhenTransferingWithAnEmptySource() {
         String source = "";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenThrow(new AccountNotFoundException());
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(source, destination, amount);
+            this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -66,13 +64,12 @@ public class TransfersServiceTest {
     public void throwsUnprocessableTransferExceptionWhenTransferingWithANullDestination() {
         String source = "john.doe@email.com";
         String destination = null;
-        BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
         when(accountsRepository.findByEmail(destination)).thenThrow(new AccountNotFoundException());
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(source, destination, amount);
+            this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -83,13 +80,12 @@ public class TransfersServiceTest {
     public void throwsUnprocessableTransferExceptionWhenTransferingWithAnEmptyDestination() {
         String source = "john.doe@email.com";
         String destination = "";
-        BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
         when(accountsRepository.findByEmail(destination)).thenThrow(new AccountNotFoundException());
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(source, destination, amount);
+            this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -100,13 +96,12 @@ public class TransfersServiceTest {
     public void throwsUnprocessableTransferExceptionWhenTransferingWithAmountZero() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.ZERO;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(source, destination, amount);
+            this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ZERO);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -122,7 +117,7 @@ public class TransfersServiceTest {
         when(accountsRepository.findByEmail(email)).thenReturn(singleAccount);
 
         Throwable throwable = catchThrowable(() -> {
-            this.transfersService.transferBetweenAccounts(email, email, BigDecimal.ONE);
+            this.transfersService.transferBetweenAccounts(email, email, MoneyAmount.ONE);
         });
 
         assertThat(throwable).isInstanceOf(UnprocessableTransferException.class);
@@ -133,12 +128,11 @@ public class TransfersServiceTest {
     public void callsAccountRepositoryToRetrieveAccounts() {
         String source = "john.doe@email.com";
         String destination = "jane.doe@email.com";
-        BigDecimal amount = BigDecimal.TEN;
 
         when(accountsRepository.findByEmail(source)).thenReturn(new Account(source));
         when(accountsRepository.findByEmail(destination)).thenReturn(new Account(destination));
 
-        this.transfersService.transferBetweenAccounts(source, destination, amount);
+        this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
 
         verify(accountsRepository).findByEmail(source);
         verify(accountsRepository).findByEmail(destination);
@@ -155,7 +149,7 @@ public class TransfersServiceTest {
         when(accountsRepository.findByEmail(source)).thenReturn(sourceAccount);
         when(accountsRepository.findByEmail(destination)).thenReturn(destinationAccount);
 
-        Account account = this.transfersService.transferBetweenAccounts(source, destination, BigDecimal.ONE);
+        Account account = this.transfersService.transferBetweenAccounts(source, destination, MoneyAmount.ONE);
 
         assertThat(account).isEqualTo(sourceAccount);
 
