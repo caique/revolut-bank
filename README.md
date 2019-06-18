@@ -14,6 +14,12 @@ Example:
 - Returns 409 (CONFLICT) when the email is already used by another account.
 - Returns 400 (BAD REQUEST) when email field is null or empty.
 
+### GET /accounts/{email}
+Retrieve the account details for a given email.
+
+- Returns 200 (CREATED) and the most recent details of the source account in the response body when an account exists for the submitted email.
+- Returns 404 (NOT FOUND) when there is no account for the submitted email.
+
 ### POST /transfers
 Transfer a certain amount from a source account to a destination account. The consumer must provide the source email, the destination email, and the amount to be transferred in the request body.
 
@@ -32,3 +38,4 @@ Example:
 ## Possible Improvements
 - Create an `Email` class to hold all business logics related to this concept such as validations and uniqueness rules;
 - Add the concept of `Currency` to make `MoneyAmount` more realistic. This would open possibilities to business rules related to money transfer between different currencies;
+- Register every transaction to allow auditing;
